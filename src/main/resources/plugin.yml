@@ -1,0 +1,6 @@
+main: cf.dirt.tweaks.Plugin
+name: Tweaks
+version: 1.0.0
+api-version: 1.14
+description: Tweaks of a few default mechanics
+author: kubachrabanski
