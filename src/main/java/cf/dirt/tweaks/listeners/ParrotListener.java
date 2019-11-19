@@ -126,12 +126,12 @@ public final class ParrotListener implements Listener {
                 Parrot rightParrot = (Parrot) right;
 
                 if (damage >= rightParrot.getHealth()) {
-                    Parrot newLeftParrot = spawnParrot(rightParrot, player.getLocation());
-                    player.setShoulderEntityLeft(null);
-                    newLeftParrot.damage(damage);
+                    Parrot newRightParrot = spawnParrot(rightParrot, player.getLocation());
+                    player.setShoulderEntityRight(null);
+                    newRightParrot.damage(damage);
                 } else {
                     rightParrot.damage(damage);
-                    player.setShoulderEntityLeft(rightParrot);
+                    player.setShoulderEntityRight(rightParrot);
                 }
             }
         }

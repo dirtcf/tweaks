@@ -1,6 +1,7 @@
 package cf.dirt.tweaks.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
@@ -71,6 +72,10 @@ public final class ProjectileListener implements Listener {
         relative.setBlockData(fireFaces.get(face));
     }
 
+    private static double roundToHalf(double value) {
+        return Math.round(value * 2) / 2d;
+    }
+
     @EventHandler (priority = EventPriority.HIGHEST)
     public void onProjectileHit(ProjectileHitEvent event) {
         Projectile projectile = event.getEntity();
@@ -88,11 +93,21 @@ public final class ProjectileListener implements Listener {
                 if (projectile.getFireTicks() > 0) {
                     Block block = event.getHitBlock();
 
-                    if (block != null) {
+                    if (block != null && block.getType() != Material.TNT) {
                         BlockFace face = event.getHitBlockFace();
                         applyFire(block, face);
                     }
                 }
+
+                Arrow arrow = (Arrow) projectile;
+
+                final double damage = arrow.getDamage();
+                final int ticks = arrow.getTicksLived();
+                final double speed = arrow.getVelocity().length();
+
+                final double scaledDamage = roundToHalf(damage * (ticks / 10d) * (speed / 2d));
+
+                arrow.setDamage(scaledDamage);
             }
         }
     }
