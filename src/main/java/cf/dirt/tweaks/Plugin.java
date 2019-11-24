@@ -1,5 +1,6 @@
 package cf.dirt.tweaks;
 
+import cf.dirt.tweaks.listeners.CropsListener;
 import cf.dirt.tweaks.listeners.ParrotListener;
 import cf.dirt.tweaks.listeners.ProjectileListener;
 import cf.dirt.tweaks.listeners.ExplosionListener;
@@ -16,5 +17,6 @@ public final class Plugin extends JavaPlugin {
         manager.registerEvents(new ExplosionListener(), this);
         manager.registerEvents(new ParrotListener(), this);
         manager.registerEvents(new ProjectileListener(), this);
+        manager.registerEvents(new CropsListener(), this);
     }
 }
