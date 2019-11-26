@@ -20,11 +20,18 @@ import java.util.Set;
 
 public final class CropsListener implements Listener {
 
-    private static final Set<Material> cropTypes = EnumSet.of(
+    private static final Set<Material> seedTypes = EnumSet.of(
             Material.BEETROOT_SEEDS,
             Material.WHEAT_SEEDS,
             Material.CARROT,
             Material.POTATO
+    );
+
+    private static final Set<Material> cropTypes = EnumSet.of(
+            Material.BEETROOTS,
+            Material.WHEAT,
+            Material.CARROTS,
+            Material.POTATOES
     );
 
     private static final Set<Material> toolTypes = EnumSet.of(
@@ -69,15 +76,15 @@ public final class CropsListener implements Listener {
             if (relative.getBlockData() instanceof Farmland) {
                 Ageable data = (Ageable) block.getBlockData();
 
-                // check is crop?
+                if (!cropTypes.contains(block.getType())) {
+                    return;
+                }
 
                 if (data.getAge() >= data.getMaximumAge()) {
                     Collection<ItemStack> drops = block.getDrops();
 
                     for (ItemStack stack : drops) {
-                        Material type = stack.getType();
-
-                        if (cropTypes.contains(type)) {
+                        if (seedTypes.contains(stack.getType())) {
                             replantCrops(stack, block, data);
 
                             if (player.getGameMode() == GameMode.SURVIVAL) {
