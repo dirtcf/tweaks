@@ -69,26 +69,27 @@ public final class CropsListener implements Listener {
             if (relative.getBlockData() instanceof Farmland) {
                 Ageable data = (Ageable) block.getBlockData();
 
-                if (data.getAge() < data.getMaximumAge()) {
-                    return;
-                }
+                // check is crop?
 
-                Collection<ItemStack> drops = block.getDrops();
+                if (data.getAge() >= data.getMaximumAge()) {
+                    Collection<ItemStack> drops = block.getDrops();
 
-                for (ItemStack stack : drops) {
-                    Material type = stack.getType();
+                    for (ItemStack stack : drops) {
+                        Material type = stack.getType();
 
-                    if (cropTypes.contains(type)) {
-                        replantCrops(stack, block, data);
+                        if (cropTypes.contains(type)) {
+                            replantCrops(stack, block, data);
 
-                        if (player.getGameMode() == GameMode.SURVIVAL) {
-                            releaseDrops(drops, block);
+                            if (player.getGameMode() == GameMode.SURVIVAL) {
+                                releaseDrops(drops, block);
+                            }
+
+                            break;
                         }
-
-                        event.setCancelled(true);
-                        return;
                     }
                 }
+
+                event.setCancelled(true);
             }
         }
     }
