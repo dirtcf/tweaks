@@ -47,7 +47,9 @@ public final class CropsListener implements Listener {
         Location location = block.getLocation();
 
         for (ItemStack stack : drops) {
-            world.dropItemNaturally(location, stack);
+            if (stack.getAmount() > 0) {
+                world.dropItemNaturally(location, stack);
+            }
         }
     }
 
