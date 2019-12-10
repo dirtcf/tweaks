@@ -20,6 +20,7 @@ public final class Plugin extends JavaPlugin {
             manager.registerEvents(new ParrotListener(), this);
             manager.registerEvents(new ProjectileListener(), this);
             manager.registerEvents(new CropsListener(), this);
+            manager.registerEvents(new EnderDragonListener(), this);
             manager.registerEvents(new RespawnListener(this,
                     Bukkit.getWorld("world")
             ), this);
