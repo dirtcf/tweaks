@@ -1,5 +1,6 @@
 package cf.dirt.tweaks.listeners;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,6 +13,9 @@ public final class ThrowableListener implements Listener {
     private static final double SCALING = 0.6000000238418579d;
     private static final double KNOCK_BACK = 1.0d;
     private static final double DAMAGE = 0.5d;
+
+    private static final float VOLUME = 0.5f;
+    private static final float PITCH = 2.0f;
 
     private static void applyKnockBack(Projectile projectile, Player player) {
         Vector projectileVelocity = projectile.getVelocity();
@@ -46,8 +50,16 @@ public final class ThrowableListener implements Listener {
             if (entity instanceof Player) {
                 Player player = (Player) entity;
 
-                applyKnockBack(projectile, player);
-                applyDamage(projectile, player);
+                if (!player.isBlocking()) {
+                    applyKnockBack(projectile, player);
+                    applyDamage(projectile, player);
+                } else {
+                    player.playSound(
+                            player.getLocation(),
+                            Sound.ITEM_SHIELD_BLOCK,
+                            VOLUME, PITCH
+                    );
+                }
             }
         }
     }
