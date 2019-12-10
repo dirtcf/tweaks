@@ -18,7 +18,8 @@ public final class Plugin extends JavaPlugin {
         try {
             manager.registerEvents(new ExplosionListener(), this);
             manager.registerEvents(new ParrotListener(), this);
-            manager.registerEvents(new ProjectileListener(), this);
+            manager.registerEvents(new ArrowListener(), this);
+            manager.registerEvents(new ThrowableListener(), this);
             manager.registerEvents(new CropsListener(), this);
             manager.registerEvents(new EnderDragonListener(), this);
             manager.registerEvents(new RespawnListener(this,
